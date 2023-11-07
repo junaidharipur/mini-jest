@@ -15,5 +15,15 @@ const expect = (actual) => ({
   },
 });
 
+function fn(impl) {
+  const mockfn = (...args) => {
+    mockfn.mock.calls.push(args);
+    return impl(...args);
+  };
+  mockfn.mock = { calls: [] };
+  return mockfn;
+}
+
 global.test = test;
 global.expect = expect;
+global.fn = fn;
